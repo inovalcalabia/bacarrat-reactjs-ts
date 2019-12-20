@@ -1,7 +1,7 @@
+import app from "./App.module.css";
 import React, { Component } from "react";
 import { Provider } from "react-redux";
 import InGame from "./components/InGame";
-import "./App.css";
 import { createStore } from "redux";
 import { any } from "prop-types";
 

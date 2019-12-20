@@ -3,7 +3,6 @@
     height: 600px;
     width: 400px;
     margin: 0 auto;
-    margin-top: 15px;
 }
 .deck {
     position: absolute;
@@ -38,16 +37,18 @@
     left: 4px;
 }
 .game-info {
-    color: #ffffff52;
+    color: rgba(255, 255, 255, 0.52);
     display: block;
     margin: 0 auto;
     position: relative;
 }
 .game-info .title {
     font-size: 35px;
+    text-align: center;
 }
 .game-info .tie-info {
     font-size: 15px;
+    text-align: center;
 }
 .game-info .time {
     position: absolute;
@@ -111,9 +112,9 @@
     width: 49%;
     height: 100%;
     display: inline-block;
-    border-right: 2px solid #00000066;
-    border-top: 2px solid #00000030;
-    border-bottom: 2px solid #00000030;
+    border-right: 2px solid rgba(0, 0, 0, 0.66);
+    border-top: 2px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     
@@ -123,9 +124,9 @@
     width: 49%;
     height: 100%;
     display: inline-block;
-    border-left: 2px solid #00000066;
-    border-bottom: 2px solid #00000030;
-    border-top: 2px solid #00000030;
+    border-left: 2px solid rgba(0, 0, 0, 0.66);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+    border-top: 2px solid rgba(0, 0, 0, 0.3);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     position: relative;
@@ -167,13 +168,13 @@
     top: -24%;
     left: 19%;
     position: absolute;
-    color: #ffffff52;
+    color: rgba(255, 255, 255, 0.52);
     font-size: 26px;
 }
 .bet {
     position: relative;
     padding: 30px 0 30px 0;
-    border-bottom: 5px solid#00000087;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.52);
     width: 330px;
     margin: 0 auto;
     border-radius: 100px;
@@ -219,7 +220,7 @@
 }
 
 .chips * {
-    width: 30px;
+    width: 29px;
     height: 30px;
     position: relative;
     cursor: pointer;
@@ -254,7 +255,7 @@
 }
 .blocker {
     width: 400px;
-    background: #0000002e;
+    background: rgba(0, 0, 0, 0.4);
     height: 600px;
     position: absolute;
     overflow: hidden;

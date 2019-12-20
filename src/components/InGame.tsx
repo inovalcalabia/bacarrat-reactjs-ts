@@ -6,9 +6,8 @@ interface IState {
   count?: number;
   chip?: string;
 }
-
+import  "./../styles/styles.css";
 import React from "react";
-import "./../styles/styles.css";
 import GameLogic from "../logic/GameLogic";
 import GameInfo from './GameInfo';
 import Cards from "./Cards";
@@ -25,10 +24,6 @@ export class InGame extends React.Component<IProps, IState> {
     this.state = {
       count: 1
     };
-    this.bettingCompRef = React.createRef();
-
-    // setInterval(()=>{var n = this.state.count;
-    //     n += 1;this.setState({count: n})}, 600);
   }
   render() {
     return (

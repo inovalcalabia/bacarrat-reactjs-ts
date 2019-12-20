@@ -1,5 +1,5 @@
-import React from "react";
 import "./../styles/styles.css";
+import React from "react";
 import { connect } from "react-redux";
 
 interface IGameInfoProps {
