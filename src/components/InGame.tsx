@@ -6,7 +6,7 @@ interface IState {
   count?: number;
   chip?: string;
 }
-import  "./../styles/styles.css";
+import style from "./../styles/styles.css";
 import React from "react";
 import GameLogic from "../logic/GameLogic";
 import GameInfo from './GameInfo';
@@ -27,16 +27,9 @@ export class InGame extends React.Component<IProps, IState> {
   }
   render() {
     return (
-      <div className="in-game">
+      <div className={style + " in-game"} >
         <Blocker/>
         <GameLogic/>
-        <div className="deck">
-          <div className="deck-holder">
-            <div className="lower-deck-holder"></div>
-            <div className="card-deck"></div>
-            <div className="upper-deck-holder"></div>
-          </div>
-        </div>
         <GameInfo/>
         <Cards />
         <Betting />

@@ -1,4 +1,4 @@
-import "./../styles/styles.css";
+import style from "./../styles/styles.css";
 import React from "react";
 import { getPoker } from "./../utils/Utils";
 import { connect } from "react-redux";
