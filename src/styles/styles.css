@@ -192,6 +192,9 @@
     position: absolute;
     right: 10px;
     top: 10px;
+    font-size: 30px;
+    font-weight: 800;
+    color: orange;
 }
 .controls {
     text-align: center;
