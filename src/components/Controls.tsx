@@ -2,7 +2,7 @@ import style from "./../styles/styles.css";
 import React from "react";
 import { connect } from "react-redux";
 
-interface IChipProps {
+interface ICardProps {
   dispatch: any;
   winAmount: number;
   walletAmount: number;
@@ -12,7 +12,7 @@ interface IChipProps {
   chipType: string;
 }
 
-export class Controls extends React.Component<IChipProps, any> {
+export class Controls extends React.Component<ICardProps, any> {
   constructor(props: any) {
     super(props);
   }

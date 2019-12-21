@@ -1,4 +1,4 @@
-interface IChipProps {
+interface IBettingProps {
   chipType: string;
   tieChips: Array<string>;
   bankerChips: Array<string>;
@@ -21,7 +21,7 @@ import React from "react";
 import { number } from "prop-types";
 import { connect } from "react-redux";
 
-export class Betting extends React.Component<IChipProps, IState> {
+export class Betting extends React.Component<IBettingProps, IState> {
   tieAllBet:number;
   bankerAllBet:number;
   playerAllBet:number;

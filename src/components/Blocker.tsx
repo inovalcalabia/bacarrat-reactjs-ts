@@ -2,10 +2,10 @@ import style from "./../styles/styles.css";
 import React from "react";
 import { connect } from "react-redux";
 
-interface IGameInfoProps {
+interface IBlockerProps {
   lock: boolean;
 }
-export class Blocker extends React.Component<IGameInfoProps, any> {
+export class Blocker extends React.Component<IBlockerProps, any> {
   constructor(props: any) {
     super(props);
   }

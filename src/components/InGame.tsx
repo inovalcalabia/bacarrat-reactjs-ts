@@ -1,4 +1,4 @@
-interface IProps {
+interface IInGameProps {
     
 }
 
@@ -13,10 +13,9 @@ import GameInfo from './GameInfo';
 import Cards from "./Cards";
 import Betting from "./Betting";
 import Controls from "./Controls";
-
 import Blocker from './Blocker';
 
-export class InGame extends React.Component<IProps, IState> {
+export class InGame extends React.Component<IInGameProps, IState> {
   count: number;
   bettingCompRef: any;
   constructor(props: any) {
