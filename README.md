@@ -1,5 +1,10 @@
 # Simple Bacarrat Game
 
+
+## Play it here
+- https://10b7d84a.ap.ngrok.io/
+
+
 ## How to play
 - select bet between (1, 25, 50, 100)
 - place the bet before the lock period
