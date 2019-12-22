@@ -20,6 +20,7 @@ interface IState {
 import React from "react";
 import { number } from "prop-types";
 import { connect } from "react-redux";
+import ActionTypes from './../store/action';
 
 export class Betting extends React.Component<IBettingProps, IState> {
   tieAllBet:number;
@@ -58,7 +59,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
       this.props.playerChips.push(this.props.chipType);
     }
     this.props.dispatch({
-      type: "UPDATE_WALLET",
+      type: ActionTypes.UPDATE_WALLET,
       payload: { walletAmount: - Number(this.props.chipType)}
     });
     this.getAllBet();
@@ -77,7 +78,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
       this.playerAllBet += Number(this.props.playerChips[i]);
     }
     this.props.dispatch({
-      type: "UPDATE_BET",
+      type: ActionTypes.UPDATE_BET,
       payload: { tieBetAmount: this.tieAllBet, playerBetAmount: this.playerAllBet, bankerBetAmount: this.bankerAllBet}
     });
     return this.tieAllBet + this.bankerAllBet + this.playerAllBet;

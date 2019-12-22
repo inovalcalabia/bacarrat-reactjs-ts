@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { number } from "prop-types";
+import ActionTypes from './../store/action';
+
 interface IGameLogicProps {
   dispatch: any;
   tieChips: Array<string>;
@@ -93,7 +95,7 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
   }
   timerHandler() {
     this.props.dispatch({
-      type: "UPDATE_TIME",
+      type: ActionTypes.UPDATE_TIME,
       payload: { time: this.currentTime }
     });
     this.currentTime -= 1;
@@ -102,7 +104,7 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
       // lock flip
       this.updateTotalValue();
       this.props.dispatch({
-        type: "SET_LOCK",
+        type: ActionTypes.SET_LOCK,
         payload: { lock: true }
       });
     }
@@ -110,14 +112,14 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
       if (this.checkPlayerAddCard(this.playerTotalValue)) {
         this.addCard(this.playerCardList);
         this.props.dispatch({
-          type: "ADD_PLAYER_CARD",
+          type: ActionTypes.ADD_PLAYER_CARD,
           payload: { playerCard: this.playerCardList[this.playerCardList.length-1].toString() }
         });
       }
       if (this.checkBankerAddCard(this.bankerTotalValue, this.playerCardList)) {
         this.addCard(this.bankerCardList);
         this.props.dispatch({
-          type: "ADD_BANKER_CARD",
+          type: ActionTypes.ADD_BANKER_CARD,
           payload: { bankerCard: this.bankerCardList[this.bankerCardList.length-1].toString() }
         });
       }
@@ -143,7 +145,7 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
     this.playerTotalValue = this.getTotal(this.playerCardList);
     this.bankerTotalValue = this.getTotal(this.bankerCardList);
     this.props.dispatch({
-      type: "UPDATE_TOTAL_VALUE",
+      type: ActionTypes.UPDATE_TOTAL_VALUE,
       payload: { playerTotalValue:this.playerTotalValue, bankerTotalValue:this.bankerTotalValue}
     });
   }
@@ -153,7 +155,7 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
     this.bankerCardList = [];
     this.playerTotalValue = 0;
     this.bankerTotalValue = 0;
-    this.props.dispatch({ type: "CLEAR_GAME" });
+    this.props.dispatch({ type: ActionTypes.CLEAR_GAME });
     this.props.dispatch({
       type: "SET_LOCK",
       payload: { lock: false }
@@ -176,13 +178,13 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
    
     for (var i = 0; i < this.bankerCardList.length; i += 1) {
       this.props.dispatch({
-        type: "ADD_BANKER_CARD",
+        type: ActionTypes.ADD_BANKER_CARD,
         payload: { bankerCard: this.bankerCardList[i].toString() }
       });
     }
     for (var i = 0; i < this.playerCardList.length; i += 1) {
       this.props.dispatch({
-        type: "ADD_PLAYER_CARD",
+        type: ActionTypes.ADD_PLAYER_CARD,
         payload: { playerCard: this.playerCardList[i].toString() }
       });
     }
@@ -191,19 +193,19 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
   getResult(_playerTotalValue: number, _bankerTotalValue: number) {
     if (_playerTotalValue === _bankerTotalValue) {
       this.props.dispatch({
-        type: "SET_WINNER",
+        type: ActionTypes.SET_WINNER,
         payload: { winner: "tie" , winAmount: this.props.tieBetAmount * 9}
       });
       return 0; // tie
     } else if (_playerTotalValue > _bankerTotalValue) {
       this.props.dispatch({
-        type: "SET_WINNER",
+        type: ActionTypes.SET_WINNER,
         payload: { winner: "player", winAmount: this.props.playerBetAmount * 2 }
       });
       return 1; // player wins
     } else if (_bankerTotalValue > _playerTotalValue) {
       this.props.dispatch({
-        type: "SET_WINNER",
+        type: ActionTypes.SET_WINNER,
         payload: { winner: "banker", winAmount: this.props.bankerBetAmount * 2 }
       });
       return 2; // banker wins;

@@ -1,5 +1,6 @@
 import { createStore } from "redux";
 import { any } from "prop-types";
+import ActionTypes from './action';
 const initalState = {
     chipType: "1",
     playerCards: "",
@@ -20,62 +21,62 @@ const initalState = {
   };
   function reducer(state: any = initalState, action: any) {
     switch (action.type) {
-      case "CHANGE_CHIP":
+      case ActionTypes.CHANGE_CHIP:
         return {
           ...state,
           chipType: action.payload.chipType
         };
-      case "ADD_PLAYER_CARD":
+      case ActionTypes.ADD_PLAYER_CARD:
         return {
           ...state,
           playerCards: state.playerCards + "," + action.payload.playerCard
         };
-      case "ADD_BANKER_CARD":
+      case ActionTypes.ADD_BANKER_CARD:
         return {
           ...state,
           bankerCards: state.bankerCards + "," + action.payload.bankerCard
         };
-      case "ADD_TIE_CHIPS":
+      case ActionTypes.ADD_TIE_CHIPS:
         return {
           ...state,
           tieChips: state.tieChips.concat(action.payload.chips)
         };
-      case "ADD_PLAYER_CHIPS":
+      case ActionTypes.ADD_PLAYER_CHIPS:
         return {
           ...state,
           playerChips: state.playerChips.concat(action.payload.chips)
         };
-      case "ADD_BANKER_CHIPS":
+      case ActionTypes.ADD_BANKER_CHIPS:
         return {
           ...state,
           bankerChips: state.bankerChips.concat(action.payload.chips)
         };
-      case "SET_WINNER":
+      case ActionTypes.SET_WINNER:
         return {
           ...state,
           winner: action.payload.winner,
           winAmount: action.payload.winAmount,
           walletAmount: state.walletAmount + action.payload.winAmount
         };
-      case "UPDATE_WALLET":
+      case ActionTypes.UPDATE_WALLET:
         return {
           ...state,
           walletAmount: state.walletAmount + action.payload.walletAmount
         };
-      case "UPDATE_TOTAL_VALUE":
+      case ActionTypes.UPDATE_TOTAL_VALUE:
         return {
           ...state,
           playerTotalValue: action.payload.playerTotalValue,
           bankerTotalValue: action.payload.bankerTotalValue
         };
-      case "UPDATE_BET":
+      case ActionTypes.UPDATE_BET:
         return {
           ...state,
           tieBetAmount: action.payload.tieBetAmount,
           playerBetAmount: action.payload.playerBetAmount,
           bankerBetAmount: action.payload.bankerBetAmount
         };
-      case "CLEAR_BET":
+      case ActionTypes.CLEAR_BET:
         return {
           ...state,
           bankerChips: [],
