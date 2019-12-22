@@ -196,6 +196,13 @@
     font-weight: 800;
     color: orange;
 }
+.place-bet-tool-tip {
+    position: absolute;
+    left: 19px;
+    width: 150px;
+    top: 53px;
+    color: rgba(255, 255 ,255, 0.3);
+}
 .controls {
     text-align: center;
     margin: 0 auto;

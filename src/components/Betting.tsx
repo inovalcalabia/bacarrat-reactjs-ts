@@ -150,6 +150,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
           className="bet tie"
           onClick={this.placeBetHandler.bind(this, "tie")}
         >
+          <span className="place-bet-tool-tip">PLACE BET HERE</span>
           <span>TIE {this.props.tieBetAmount}</span>
           <span className="win-flag" style={{display: (this.props.winner === 'tie')? "block": "none"}}>win</span>
           {this.renderTieChips()}
@@ -158,6 +159,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
           className="bet banker"
           onClick={this.placeBetHandler.bind(this, "banker")}
         >
+          <span className="place-bet-tool-tip">PLACE BET HERE</span>
           <span>BANKER {this.props.bankerBetAmount}</span>
           <span className="win-flag" style={{display: (this.props.winner === 'banker')? "block": "none"}}>win</span>
           {this.renderBankerChips()}
@@ -166,6 +168,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
           className="bet player"
           onClick={this.placeBetHandler.bind(this, "player")}
         >
+          <span className="place-bet-tool-tip">PLACE BET HERE</span>
           <span>PLAYER {this.props.playerBetAmount}</span>
           <span className="win-flag" style={{display: (this.props.winner === 'player')? "block": "none"}}>win</span>
           {this.renderPlayerChips()}
