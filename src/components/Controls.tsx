@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import ActionTypes from './../store/action';
 
 interface ICardProps {
   dispatch: any;
@@ -18,13 +19,13 @@ export class Controls extends React.Component<ICardProps, any> {
   selectChipHandler(_chipType: string) {
     //this.props.dispatch({type: "ADD_PLAYER_CARD", payload: {playerCard: "2"}});
     this.props.dispatch({
-      type: "CHANGE_CHIP",
+      type: ActionTypes.CHANGE_CHIP,
       payload: { chipType: _chipType }
     });
   }
   clearBet() {
     this.props.dispatch({
-        type: "UPDATE_WALLET",
+        type: ActionTypes.UPDATE_WALLET,
         payload: { walletAmount: (this.props.playerBetAmount + this.props.bankerBetAmount + this.props.tieBetAmount)}
       });
     this.props.dispatch({type: "CLEAR_BET"});

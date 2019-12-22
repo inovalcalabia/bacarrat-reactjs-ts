@@ -16,8 +16,8 @@
     "noEmit": true,
     "jsx": "react",
     "strictNullChecks": false,
-        "noImplicitAny": true,
-        "experimentalDecorators": true
+    "noImplicitAny": true,
+    "experimentalDecorators": true
   },
   "filesGlob": [
         "./**/*.ts",

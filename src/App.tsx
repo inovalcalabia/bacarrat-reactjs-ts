@@ -1,4 +1,4 @@
-import app from "./App.css";
+// import app from "./App.css";
 import React, { Component } from "react";
 import { Provider } from "react-redux";
 import InGame from "./components/InGame";

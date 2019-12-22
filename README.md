@@ -14,31 +14,43 @@
 - lock game period 5 seconds
 
 
+## How to run with RCA
+
+```sh
+git clone https://github.com/inovalcalabia/bacarrat-reactjs-ts.git
+npm install
+npm i -g react-scripts
+npm run start 
+```
+
+
 ## How to build with GULP
 
 ```sh
 git clone https://github.com/inovalcalabia/bacarrat-reactjs-ts.git
 npm install gulp-cli -g
 npm install
-gulp bundle
+gulp build
 ```
 
 ## How to run with GULP
 
 ```sh
 git clone https://github.com/inovalcalabia/bacarrat-reactjs-ts.git
-npm install gulp-cli -g
 npm install
+npm install gulp-cli -g
 gulp serve
+http://localhost:3001/
 ```
 
 ## How to run with GULP on watch mode
 
 ```sh
 git clone https://github.com/inovalcalabia/bacarrat-reactjs-ts.git
-npm install gulp-cli -g
 npm install
+npm install gulp-cli -g
 gulp serve-watch
+http://localhost:3001/
 ```
 
 ## Author

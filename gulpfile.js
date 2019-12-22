@@ -16,6 +16,8 @@ var concatCss = require("gulp-concat-css");
 var babelify = require("babelify");
 var inject = require("gulp-inject");
 var project = ts.createProject("src/tsconfig.json", { typescript: typescript });
+var removeCode = require('gulp-remove-code');
+var runSequence = require('run-sequence');
 var options = {};
 
 gulp.task("through", function() {
@@ -38,9 +40,12 @@ gulp.task("css", function() {
 });
 
 gulp.task("compile", function() {
-  var result = gulp.src("src/**/*{ts,tsx}").pipe(ts(project));
+  var result = gulp.src("src/**/*{ts,tsx}").pipe(removeCode({ gulpmode: false })).pipe(ts(project));
   return result.js.pipe(gulp.dest(".tmp"));
 });
+
+
+
 
 gulp.task("html", function() {
   var target = gulp.src("./public/index.html");
@@ -59,7 +64,7 @@ gulp.task("clean", function(done) {
 
 gulp.task(
   "bundle",
-  ["through", "css", "compile", "copy-asset", "html"],
+  ["through", "css", "compile", "copy-asset"],
   function() {
     var b = browserify([".tmp/index.js"]).transform("babelify", {
       presets: ["@babel/preset-env"]
@@ -71,11 +76,16 @@ gulp.task(
   }
 );
 
-gulp.task("watch", ["bundle"], function() {
-  gulp.watch("src/**/*", ["bundle"]);
+gulp.task('build', function(callback) {
+  runSequence('bundle', 'html',
+              callback);
 });
 
-gulp.task('serve', ['bundle'], function () {
+gulp.task("watch", ["build"], function() {
+  gulp.watch("src/**/*", ["build"]);
+});
+
+gulp.task('serve', ['build'], function () {
   return gulp.src("./dist")
     .pipe(webserver({
       port: 3001,
