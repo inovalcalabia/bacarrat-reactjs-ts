@@ -1,5 +1,4 @@
 import React from "react";
-import  style from "./../styles/styles.css";
 import { getPoker } from "./../utils/Utils";
 import { connect } from "react-redux";
 

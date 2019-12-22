@@ -6,7 +6,6 @@ interface IState {
   count?: number;
   chip?: string;
 }
-import style from "./../styles/styles.css";
 import React from "react";
 import GameLogic from "../logic/GameLogic";
 import GameInfo from './GameInfo';
@@ -26,7 +25,7 @@ export class InGame extends React.Component<IInGameProps, IState> {
   }
   render() {
     return (
-      <div className={style + " in-game"} >
+      <div className={"in-game"} >
         <Blocker/>
         <GameLogic/>
         <GameInfo/>

@@ -1,4 +1,3 @@
-import style from "./../styles/styles.css";
 import React from "react";
 import { connect } from "react-redux";
 

@@ -7,6 +7,7 @@ var browserify = require("browserify");
 var source = require("vinyl-source-stream");
 var del = require("del");
 
+var webserver = require('gulp-webserver');
 var concat = require("gulp-concat");
 var minifyCSS = require("gulp-minify-css");
 var autoprefixer = require("gulp-autoprefixer");
@@ -72,4 +73,20 @@ gulp.task(
 
 gulp.task("watch", ["bundle"], function() {
   gulp.watch("src/**/*", ["bundle"]);
+});
+
+gulp.task('serve', ['bundle'], function () {
+  return gulp.src("./dist")
+    .pipe(webserver({
+      port: 3001,
+      livereload: true
+    }));
+});
+
+gulp.task('serve-watch', ['watch'], function () {
+  return gulp.src("./dist")
+    .pipe(webserver({
+      port: 3001,
+      livereload: true
+    }));
 });
