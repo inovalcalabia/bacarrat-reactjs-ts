@@ -47,11 +47,11 @@ export class Cards extends React.Component<ICardProps, any> {
   render() {
     return (
       <div className="card-layer">
-        <div className="cards">
+        <div className="cards player-border">
           <div className="name">PLAYER {this.props.playerTotalValue}</div>
           {this.renderPoker(this.props.playerCards)}
         </div>
-        <div className="cards">
+        <div className="cards banker-border">
           <div className="name">BANKER  {this.props.bankerTotalValue}</div>
           {this.renderPoker(this.props.bankerCards)}
         </div>
