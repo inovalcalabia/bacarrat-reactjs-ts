@@ -41,7 +41,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
     if (this.props.walletAmount < Number(this.props.chipType)) {
       return;
     }
-    var n: number;
+    let n: number;
     if (e === "tie") {
       n = this.state.tieBetCount;
       n += 1;
@@ -68,13 +68,13 @@ export class Betting extends React.Component<IBettingProps, IState> {
     this.tieAllBet = 0;
     this.bankerAllBet = 0;
     this.playerAllBet = 0;
-    for (var i = 0; i < this.props.tieChips.length; i += 1) {
+    for (let i = 0; i < this.props.tieChips.length; i += 1) {
       this.tieAllBet += Number(this.props.tieChips[i]);
     }
-    for (var i = 0; i < this.props.bankerChips.length; i += 1) {
+    for (let i = 0; i < this.props.bankerChips.length; i += 1) {
       this.bankerAllBet += Number(this.props.bankerChips[i]);
     }
-    for (var i = 0; i < this.props.playerChips.length; i += 1) {
+    for (let i = 0; i < this.props.playerChips.length; i += 1) {
       this.playerAllBet += Number(this.props.playerChips[i]);
     }
     this.props.dispatch({
@@ -83,11 +83,11 @@ export class Betting extends React.Component<IBettingProps, IState> {
     });
     return this.tieAllBet + this.bankerAllBet + this.playerAllBet;
   }
-  renderTieChips() {
-    var chips = [];
-    var xCount: number = 0;
-    var xPos: number = 0;
-    for (var i = 0; i < this.state.tieBetCount; i += 1) {
+  renderChips(_betCount: number, _chips: Array<string>) {
+    let chips = [];
+    let xCount: number = 0;
+    let xPos: number = 0;
+    for (let i = 0; i < _betCount; i += 1) {
       xCount += 1;
       if (xCount >= 9) {
         xPos += 1;
@@ -96,47 +96,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
       chips.push(
         <div
           key={i}
-          className={"chip-" + this.props.tieChips[i]}
-          style={{ top: 50 - xCount * 5 + "px", left: 15 + xPos * 15 + "px" }}
-        ></div>
-      );
-    }
-    return chips;
-  }
-  renderBankerChips() {
-    var chips = [];
-    var xCount: number = 0;
-    var xPos: number = 0;
-    for (var i = 0; i < this.state.bankerBetCount; i += 1) {
-      xCount += 1;
-      if (xCount >= 9) {
-        xPos += 1;
-        xCount = 1;
-      }
-      chips.push(
-        <div
-          key={i}
-          className={"chip-" + this.props.bankerChips[i]}
-          style={{ top: 50 - xCount * 5 + "px", left: 15 + xPos * 15 + "px" }}
-        ></div>
-      );
-    }
-    return chips;
-  }
-  renderPlayerChips() {
-    var chips = [];
-    var xCount: number = 0;
-    var xPos: number = 0;
-    for (var i = 0; i < this.state.playerBetCount; i += 1) {
-      xCount += 1;
-      if (xCount >= 9) {
-        xPos += 1;
-        xCount = 1;
-      }
-      chips.push(
-        <div
-          key={i}
-          className={"chip-" + this.props.playerChips[i]}
+          className={"chip-" + _chips[i]}
           style={{ top: 50 - xCount * 5 + "px", left: 15 + xPos * 15 + "px" }}
         ></div>
       );
@@ -153,7 +113,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
           <span className="place-bet-tool-tip">PLACE BET HERE</span>
           <span>TIE {this.props.tieBetAmount}</span>
           <span className="win-flag" style={{display: (this.props.winner === 'tie')? "block": "none"}}>win</span>
-          {this.renderTieChips()}
+          {this.renderChips(this.state.tieBetCount, this.props.tieChips)}
         </div>
         <div
           className="bet banker"
@@ -162,7 +122,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
           <span className="place-bet-tool-tip">PLACE BET HERE</span>
           <span>BANKER {this.props.bankerBetAmount}</span>
           <span className="win-flag" style={{display: (this.props.winner === 'banker')? "block": "none"}}>win</span>
-          {this.renderBankerChips()}
+          {this.renderChips(this.state.bankerBetCount, this.props.bankerChips)}
         </div>
         <div
           className="bet player"
@@ -171,7 +131,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
           <span className="place-bet-tool-tip">PLACE BET HERE</span>
           <span>PLAYER {this.props.playerBetAmount}</span>
           <span className="win-flag" style={{display: (this.props.winner === 'player')? "block": "none"}}>win</span>
-          {this.renderPlayerChips()}
+          {this.renderChips(this.state.playerBetCount, this.props.playerChips)}
         </div>
       </div>
     );

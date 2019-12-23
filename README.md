@@ -48,6 +48,14 @@ gulp serve-watch
 http://localhost:3001/
 ```
 
+## How to test with (Mocha + Chai) Unit Testing
+
+```sh
+git clone https://github.com/inovalcalabia/bacarrat-reactjs-ts.git
+npm install
+npm run u-test
+```
+
 ## Author
 
 👤 **inovalcalabia**

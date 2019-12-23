@@ -13,16 +13,15 @@ export class Cards extends React.Component<ICardProps, any> {
   constructor(props: any) {
     super(props);
   }
-  renderPlayerPoker() {
-    var cards = [];
-
-    if (this.props.playerCards) {
-      var cardList = this.props.playerCards.split(",");
-      for (var i = 1; i < cardList.length; i += 1) {
+  renderPoker(_className: string, _cards: string) {
+    let cards = [];
+    if (_cards) {
+      let cardList = _cards.split(",");
+      for (let i = 1; i < cardList.length; i += 1) {
         cards.push(
           <div
-            key={i + "pp"}
-            className="player-poker"
+            key={i + Math.random() * 20 + _className}
+            className={_className}
             style={{
               backgroundPositionX: -getPoker(cardList[i]).frame.x,
               backgroundPositionY: -getPoker(cardList[i]).frame.y,
@@ -32,37 +31,7 @@ export class Cards extends React.Component<ICardProps, any> {
         );
         cards.push(
           <div
-            key={i + "ppb"}
-            className="back-card-poker"
-            style={{
-              left: -92 + i * 25 + "px",
-              display: this.props.time <= 7 ? "none" : "block"
-            }}
-          ></div>
-        );
-      }
-      return cards;
-    }
-  }
-  renderBankerPoker() {
-    var cards = [];
-    if (this.props.bankerCards) {
-      var cardList = this.props.bankerCards.split(",");
-      for (var i = 1; i < cardList.length; i += 1) {
-        cards.push(
-          <div
-            key={i + "bp"}
-            className="player-poker"
-            style={{
-              backgroundPositionX: -getPoker(cardList[i]).frame.x,
-              backgroundPositionY: -getPoker(cardList[i]).frame.y,
-              left: -92 + i * 25 + "px"
-            }}
-          ></div>
-        );
-        cards.push(
-          <div
-            key={i + "bpb"}
+            key={i + Math.random() * 20 + _className}
             className="back-card-poker"
             style={{
               left: -92 + i * 25 + "px",
@@ -79,11 +48,11 @@ export class Cards extends React.Component<ICardProps, any> {
       <div className="card-layer">
         <div className="player-cards">
           <div className="name">PLAYER {this.props.playerTotalValue}</div>
-          {this.renderPlayerPoker()}
+          {this.renderPoker("player-poker", this.props.playerCards)}
         </div>
         <div className="banker-cards">
           <div className="name">BANKER  {this.props.bankerTotalValue}</div>
-          {this.renderBankerPoker()}
+          {this.renderPoker("banker-poker", this.props.bankerCards)}
         </div>
       </div>
     );
