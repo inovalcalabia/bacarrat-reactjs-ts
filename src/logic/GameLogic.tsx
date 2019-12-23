@@ -52,11 +52,7 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
   }
  
   timerHandler() {
-    this.props.dispatch({
-      type: ActionTypes.UPDATE_TIME,
-      payload: { time: this.currentTime }
-    });
-    this.currentTime -= 1;
+    
     if (this.currentTime === LOCK_GAME_TIME) {
       this.lockGame();
     }
@@ -66,6 +62,11 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
     if (this.currentTime < END_GAME_TIME) {
       this.gameReset();
     }
+    this.props.dispatch({
+      type: ActionTypes.UPDATE_TIME,
+      payload: { time: this.currentTime }
+    });
+    this.currentTime -= 1;
   }
   lockGame() {
     this.updateTotalValue();

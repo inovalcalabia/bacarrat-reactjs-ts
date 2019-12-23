@@ -9,6 +9,7 @@ interface ICardProps {
   bankerTotalValue: number;
   playerTotalValue: number;
 }
+const LOCK_GAME_TIME: number = 6;
 export class Cards extends React.Component<ICardProps, any> {
   constructor(props: any) {
     super(props);
@@ -35,7 +36,7 @@ export class Cards extends React.Component<ICardProps, any> {
             className="back-card-poker"
             style={{
               left: -92 + i * 25 + "px",
-              display: this.props.time <= 7 ? "none" : "block"
+              display: this.props.time <= LOCK_GAME_TIME ? "none" : "block"
             }}
           ></div>
         );
