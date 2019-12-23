@@ -20,12 +20,12 @@ interface IState {
 import React from "react";
 import { number } from "prop-types";
 import { connect } from "react-redux";
-import ActionTypes from './../store/action';
+import ActionTypes from "./../store/action";
 
 export class Betting extends React.Component<IBettingProps, IState> {
-  tieAllBet:number;
-  bankerAllBet:number;
-  playerAllBet:number;
+  tieAllBet: number;
+  bankerAllBet: number;
+  playerAllBet: number;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -60,7 +60,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
     }
     this.props.dispatch({
       type: ActionTypes.UPDATE_WALLET,
-      payload: { walletAmount: - Number(this.props.chipType)}
+      payload: { walletAmount: -Number(this.props.chipType) }
     });
     this.getAllBet();
   }
@@ -79,7 +79,11 @@ export class Betting extends React.Component<IBettingProps, IState> {
     }
     this.props.dispatch({
       type: ActionTypes.UPDATE_BET,
-      payload: { tieBetAmount: this.tieAllBet, playerBetAmount: this.playerAllBet, bankerBetAmount: this.bankerAllBet}
+      payload: {
+        tieBetAmount: this.tieAllBet,
+        playerBetAmount: this.playerAllBet,
+        bankerBetAmount: this.bankerAllBet
+      }
     });
     return this.tieAllBet + this.bankerAllBet + this.playerAllBet;
   }
@@ -103,36 +107,54 @@ export class Betting extends React.Component<IBettingProps, IState> {
     }
     return chips;
   }
+  renderTable() {
+    let tableInfoList:Array< {name: string, amountProps: number, betCountProps: number, chipProps: Array<string>} >= [
+      {
+        name: "tie",
+        amountProps: this.props.tieBetAmount,
+        betCountProps: this.state.tieBetCount,
+        chipProps: this.props.tieChips
+      },
+      {
+        name: "banker",
+        amountProps: this.props.bankerBetAmount,
+        betCountProps: this.state.bankerBetCount,
+        chipProps: this.props.bankerChips
+      },
+      {
+        name: "player",
+        amountProps: this.props.playerBetAmount,
+        betCountProps: this.state.playerBetCount,
+        chipProps: this.props.playerChips
+      }
+    ];
+    let table = [];
+    for (var i: number = 0; i < tableInfoList.length; i += 1) {
+      table.push(
+        <div
+          className={"bet " + tableInfoList[i].name}
+          onClick={this.placeBetHandler.bind(this, tableInfoList[i].name)}
+        >
+          <span className="place-bet-tool-tip">PLACE BET HERE</span>
+          <span>
+            {tableInfoList[i].name.toUpperCase()} {tableInfoList[i].amountProps}
+          </span>
+          <span
+            className="win-flag"
+            style={{ display: this.props.winner === tableInfoList[i].name ? "block" : "none" }}
+          >
+            win
+          </span>
+          {this.renderChips(tableInfoList[i].betCountProps, tableInfoList[i].chipProps)}
+        </div>
+      );
+    }
+    return table;
+  }
   render() {
     return (
       <div className="table">
-        <div
-          className="bet tie"
-          onClick={this.placeBetHandler.bind(this, "tie")}
-        >
-          <span className="place-bet-tool-tip">PLACE BET HERE</span>
-          <span>TIE {this.props.tieBetAmount}</span>
-          <span className="win-flag" style={{display: (this.props.winner === 'tie')? "block": "none"}}>win</span>
-          {this.renderChips(this.state.tieBetCount, this.props.tieChips)}
-        </div>
-        <div
-          className="bet banker"
-          onClick={this.placeBetHandler.bind(this, "banker")}
-        >
-          <span className="place-bet-tool-tip">PLACE BET HERE</span>
-          <span>BANKER {this.props.bankerBetAmount}</span>
-          <span className="win-flag" style={{display: (this.props.winner === 'banker')? "block": "none"}}>win</span>
-          {this.renderChips(this.state.bankerBetCount, this.props.bankerChips)}
-        </div>
-        <div
-          className="bet player"
-          onClick={this.placeBetHandler.bind(this, "player")}
-        >
-          <span className="place-bet-tool-tip">PLACE BET HERE</span>
-          <span>PLAYER {this.props.playerBetAmount}</span>
-          <span className="win-flag" style={{display: (this.props.winner === 'player')? "block": "none"}}>win</span>
-          {this.renderChips(this.state.playerBetCount, this.props.playerChips)}
-        </div>
+        {this.renderTable()}
       </div>
     );
   }

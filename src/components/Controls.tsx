@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import ActionTypes from './../store/action';
+import ActionTypes from "./../store/action";
 
 interface ICardProps {
   dispatch: any;
   winAmount: number;
   walletAmount: number;
-  playerBetAmount: number,
-  bankerBetAmount: number
-  tieBetAmount: number,
+  playerBetAmount: number;
+  bankerBetAmount: number;
+  tieBetAmount: number;
   chipType: string;
 }
 
@@ -25,44 +25,40 @@ export class Controls extends React.Component<ICardProps, any> {
   }
   clearBet() {
     this.props.dispatch({
-        type: ActionTypes.UPDATE_WALLET,
-        payload: { walletAmount: (this.props.playerBetAmount + this.props.bankerBetAmount + this.props.tieBetAmount)}
-      });
-    this.props.dispatch({type: "CLEAR_BET"});
+      type: ActionTypes.UPDATE_WALLET,
+      payload: {
+        walletAmount:
+          this.props.playerBetAmount +
+          this.props.bankerBetAmount +
+          this.props.tieBetAmount
+      }
+    });
+    this.props.dispatch({ type: "CLEAR_BET" });
+  }
+  renderChips() {
+    let chips: Array<string> = ["1", "25", "50", "100"];
+    let chipSet = [];
+
+    for (let i: number = 0; i < chips.length; i += 1) {
+      chipSet.push(
+        <div
+          className={"chip-btn chip-url-" + chips[i]}
+          onClick={this.selectChipHandler.bind(this, chips[i])}
+          style={{
+            transform:
+              this.props.chipType === chips[i] ? "scale(1.2)" : "scale(1)"
+          }}
+        >
+          <span>{chips[i]}</span>
+        </div>
+      );
+    }
+    return chipSet;
   }
   render() {
     return (
       <div className="controls">
-        <div className="chips">
-          <div
-            className="chip-btn chip-url-1"
-            onClick={this.selectChipHandler.bind(this, "1")}
-            style={{transform: (this.props.chipType === "1") ? 'scale(1.2)' :'scale(1)'}}
-          >
-            <span>1</span>
-          </div>
-          <div
-            className="chip-btn chip-url-25"
-            onClick={this.selectChipHandler.bind(this, "25")}
-            style={{transform: (this.props.chipType === "25") ? 'scale(1.2)' :'scale(1)'}}
-          >
-            <span>25</span>
-          </div>
-          <div
-            className="chip-btn chip-url-50"
-            onClick={this.selectChipHandler.bind(this, "50")}
-            style={{transform: (this.props.chipType === "50") ? 'scale(1.2)' :'scale(1)'}}
-          >
-            <span>50</span>
-          </div>
-          <div
-            className="chip-btn chip-url-100"
-            onClick={this.selectChipHandler.bind(this, "100")}
-            style={{transform: (this.props.chipType === "100") ? 'scale(1.2)' :'scale(1)'}}
-          >
-            <span>100</span>
-          </div>
-        </div>
+        <div className="chips">{this.renderChips()}</div>
         <div className="wallet">
           <span>balance: </span>
           <span>${this.props.walletAmount}</span>
@@ -71,7 +67,9 @@ export class Controls extends React.Component<ICardProps, any> {
           <span>win amount: </span>
           <span>${this.props.winAmount}</span>
         </div>
-        <button className="clear-btn" onClick={this.clearBet.bind(this)}>Clear</button>
+        <button className="clear-btn" onClick={this.clearBet.bind(this)}>
+          Clear
+        </button>
       </div>
     );
   }

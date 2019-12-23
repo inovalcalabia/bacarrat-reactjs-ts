@@ -32,7 +32,6 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
   constructor(props: any) {
     super(props);
     this.currentTime = 20;
-    
     this.cardList = [];
     this.closeCardList = [];
     this.playerCardList = [];
@@ -246,22 +245,17 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
     return total % 10;
   }
   getCardValue(_value: number) {
-    let suit: string;
     let cardValue = 1;
     if (_value >= 1 && _value <= 13) {
-      suit = "spade";
       cardValue = _value;
     } else if (_value >= 14 && _value <= 26) {
-      suit = "heart";
       cardValue = Math.abs(_value - 13);
     } else if (_value >= 27 && _value <= 39) {
-      suit = "diamond";
       cardValue = Math.abs(_value - 26);
     } else {
-      suit = "club";
       cardValue = Math.abs(_value - 39);
     }
-    return { suit: suit, value: cardValue };
+    return {value: cardValue };
   }
   // 1. get 2 set of cards for player and banker
   // 2. add the value of the 2 cards {0 is the lowest, 9 is the highest}
