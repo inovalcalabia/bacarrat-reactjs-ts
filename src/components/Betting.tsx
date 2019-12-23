@@ -96,7 +96,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
       chips.push(
         <div
           key={i}
-          className={"chip-" + _chips[i]}
+          className={"bet-chip" + " chip-url-" + _chips[i]}
           style={{ top: 50 - xCount * 5 + "px", left: 15 + xPos * 15 + "px" }}
         ></div>
       );

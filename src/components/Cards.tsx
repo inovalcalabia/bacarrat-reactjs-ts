@@ -13,15 +13,15 @@ export class Cards extends React.Component<ICardProps, any> {
   constructor(props: any) {
     super(props);
   }
-  renderPoker(_className: string, _cards: string) {
+  renderPoker(_cards: string) {
     let cards = [];
     if (_cards) {
       let cardList = _cards.split(",");
       for (let i = 1; i < cardList.length; i += 1) {
         cards.push(
           <div
-            key={i + Math.random() * 20 + _className}
-            className={_className}
+            key={i + Math.random() * 20 + "poker"}
+            className="poker"
             style={{
               backgroundPositionX: -getPoker(cardList[i]).frame.x,
               backgroundPositionY: -getPoker(cardList[i]).frame.y,
@@ -31,7 +31,7 @@ export class Cards extends React.Component<ICardProps, any> {
         );
         cards.push(
           <div
-            key={i + Math.random() * 20 + _className}
+            key={i + Math.random() * 20 + "poker"}
             className="back-card-poker"
             style={{
               left: -92 + i * 25 + "px",
@@ -46,13 +46,13 @@ export class Cards extends React.Component<ICardProps, any> {
   render() {
     return (
       <div className="card-layer">
-        <div className="player-cards">
+        <div className="cards">
           <div className="name">PLAYER {this.props.playerTotalValue}</div>
-          {this.renderPoker("player-poker", this.props.playerCards)}
+          {this.renderPoker(this.props.playerCards)}
         </div>
-        <div className="banker-cards">
+        <div className="cards">
           <div className="name">BANKER  {this.props.bankerTotalValue}</div>
-          {this.renderPoker("banker-poker", this.props.bankerCards)}
+          {this.renderPoker(this.props.bankerCards)}
         </div>
       </div>
     );

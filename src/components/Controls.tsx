@@ -35,28 +35,28 @@ export class Controls extends React.Component<ICardProps, any> {
       <div className="controls">
         <div className="chips">
           <div
-            className="chip-btn-1"
+            className="chip-btn chip-url-1"
             onClick={this.selectChipHandler.bind(this, "1")}
             style={{transform: (this.props.chipType === "1") ? 'scale(1.2)' :'scale(1)'}}
           >
             <span>1</span>
           </div>
           <div
-            className="chip-btn-25"
+            className="chip-btn chip-url-25"
             onClick={this.selectChipHandler.bind(this, "25")}
             style={{transform: (this.props.chipType === "25") ? 'scale(1.2)' :'scale(1)'}}
           >
             <span>25</span>
           </div>
           <div
-            className="chip-btn-50"
+            className="chip-btn chip-url-50"
             onClick={this.selectChipHandler.bind(this, "50")}
             style={{transform: (this.props.chipType === "50") ? 'scale(1.2)' :'scale(1)'}}
           >
             <span>50</span>
           </div>
           <div
-            className="chip-btn-100"
+            className="chip-btn chip-url-100"
             onClick={this.selectChipHandler.bind(this, "100")}
             style={{transform: (this.props.chipType === "100") ? 'scale(1.2)' :'scale(1)'}}
           >

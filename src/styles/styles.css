@@ -4,38 +4,6 @@
     width: 400px;
     margin: 0 auto;
 }
-.deck {
-    position: absolute;
-    opacity: 0;
-}
-.deck-holder {
-    width: 120px;
-    height: 140px;
-    position: relative;
-    overflow: hidden;
-}
-.deck-holder .lower-deck-holder {
-    position: absolute;
-    background: url('/assets/deck-holder/lower-deck-holder.png');
-    width: 119px;
-    height: 137px;
-}
-.deck-holder .card-deck {
-    position: absolute;
-    background: url('/assets/deck-holder/card-deck.png');
-    width: 85px;
-    height: 97px;
-    top: 26px;
-    left: 10px;
-}
-.deck-holder .upper-deck-holder {
-    position: absolute;
-    background: url('/assets/deck-holder/upper-deck-holder.png');
-    width: 112px;
-    height: 119px;
-    top: 6px;
-    left: 4px;
-}
 .game-info {
     color: rgba(255, 255, 255, 0.52);
     display: block;
@@ -71,36 +39,14 @@
     font-size: 20px;
     top: 9px;
 }
-.table {
-    /* padding-top: 40px; */
-}
 .card-layer {
     height: 150px;
     position: relative;
     padding-top: 35px;
 }
-.chip-1 {
+.bet-chip {
     width: 30px;
     height: 30px;
-    background: url('/assets/chips/chip-1.png');
-    position: absolute;
-}
-.chip-25 {
-    width: 30px;
-    height: 30px;
-    background: url('/assets/chips/chip-25.png');
-    position: absolute;
-}
-.chip-50 {
-    width: 30px;
-    height: 30px;
-    background: url('/assets/chips/chip-50.png');
-    position: absolute;
-}
-.chip-100 {
-    width: 30px;
-    height: 30px;
-    background: url('/assets/chips/chip-100.png');
     position: absolute;
 }
 .clear-btn {
@@ -108,7 +54,7 @@
     left: 10px;
     top: 61px;
 }
-.player-cards {
+.cards {
     width: 49%;
     height: 100%;
     display: inline-block;
@@ -117,21 +63,9 @@
     border-bottom: 2px solid rgba(0, 0, 0, 0.3);
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    
     position: relative;
 }
-.banker-cards {
-    width: 49%;
-    height: 100%;
-    display: inline-block;
-    border-left: 2px solid rgba(0, 0, 0, 0.66);
-    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
-    border-top: 2px solid rgba(0, 0, 0, 0.3);
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    position: relative;
-}
-.player-poker {
+.poker {
     background: url('/assets/poker/poker.png') no-repeat;
     background-position: 0 0;
     width: 276px;
@@ -140,21 +74,10 @@
     transform: scale(0.3);
     position: absolute;
     top: -120px;
-    left: -83px;
+    left: -83px; 
 }
 .back-card-poker {
     background: url('/assets/poker/back-card.png') no-repeat;
-    background-position: 0 0;
-    width: 276px;
-    height: 391px;
-    -webkit-transform: scale(0.3);
-    transform: scale(0.3);
-    position: absolute;
-    top: -120px;
-    left: -83px;
-}
-.banker-poker {
-    background: url('/assets/poker/poker.png') no-repeat;
     background-position: 0 0;
     width: 276px;
     height: 391px;
@@ -247,21 +170,20 @@
     top: 4px;
     left: -1px;
 }
-.chip-btn-1 {
+.chip-btn {
+    display: inline-block;
+}
+.chip-url-1 {
     background: url('/assets/chips/chip-1.png');
-    display: inline-block;
 }
-.chip-btn-25 {
+.chip-url-25 {
     background: url('/assets/chips/chip-25.png');
-    display: inline-block;
 }
-.chip-btn-50 {
+.chip-url-50 {
     background: url('/assets/chips/chip-50.png');
-    display: inline-block;
 }
-.chip-btn-100 {
+.chip-url-100 {
     background: url('/assets/chips/chip-100.png');
-    display: inline-block;
 }
 .blocker {
     width: 400px;

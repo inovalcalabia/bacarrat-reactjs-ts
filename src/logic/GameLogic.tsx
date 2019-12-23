@@ -14,6 +14,11 @@ interface IGameLogicProps {
   winAmount: number;
   lock: boolean;
 }
+
+const LOCK_GAME_TIME: number = 6;
+const CHECK_ADD_CARD_TIME: number = 5;
+const END_GAME_TIME: number = 0;
+const MAX_TIME = 20;
 export class GameLogic extends React.Component<IGameLogicProps, any> {
   currentTime: number;
   maxTime: number;
@@ -27,71 +32,24 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
   constructor(props: any) {
     super(props);
     this.currentTime = 20;
-    this.maxTime = 20;
-    // spade heart diamond club
-    this.cardList = [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
-      24,
-      25,
-      26,
-      27,
-      28,
-      29,
-      30,
-      31,
-      32,
-      33,
-      34,
-      35,
-      36,
-      37,
-      38,
-      39,
-      40,
-      41,
-      42,
-      43,
-      44,
-      45,
-      46,
-      47,
-      48,
-      49,
-      50,
-      51,
-      52
-    ];
+    
+    this.cardList = [];
     this.closeCardList = [];
     this.playerCardList = [];
     this.bankerCardList = [];
     this.playerTotalValue = 0;
     this.bankerTotalValue = 0;
+    this.setCardList();
     this.props.dispatch({ type: "CLEAR_GAME" });
     setInterval(this.timerHandler.bind(this), 1000);
     this.shuffleDeck();
     this.giveCard();
+  }
+  setCardList() {
+    // spade heart diamond club
+    for (let i: number = 1; i <= 52; i += 1) {
+      this.cardList.push(i);
+    }
   }
   timerHandler() {
     this.props.dispatch({
@@ -99,50 +57,71 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
       payload: { time: this.currentTime }
     });
     this.currentTime -= 1;
-
-    if (this.currentTime === 6) {
-      // LOCK THE GAME
-      // lock flip
-      this.updateTotalValue();
+    if (this.currentTime === LOCK_GAME_TIME) {
+      this.lockGame();
+    }
+    if (this.currentTime === CHECK_ADD_CARD_TIME) {
+      this.checkAddCard();
+    }
+    if (this.currentTime < END_GAME_TIME) {
+      this.gameReset();
+    }
+  }
+  lockGame() {
+    this.updateTotalValue();
+    this.props.dispatch({
+      type: ActionTypes.SET_LOCK,
+      payload: { lock: true }
+    });
+  }
+  gameReset() {
+    this.currentTime = MAX_TIME;
+    this.clearGame();
+    if (this.openCardList.length < 10) {
+      // shuffle if no more cards on deck
+      this.shuffleDeck();
+    }
+    this.giveCard();
+  }
+  checkAddCard() {
+    if (this.checkPlayerAddCard(this.playerTotalValue)) {
+      this.addCard(this.playerCardList);
       this.props.dispatch({
-        type: ActionTypes.SET_LOCK,
-        payload: { lock: true }
+        type: ActionTypes.ADD_PLAYER_CARD,
+        payload: {
+          playerCard: this.playerCardList[
+            this.playerCardList.length - 1
+          ].toString()
+        }
       });
     }
-    if (this.currentTime === 5) {
-      if (this.checkPlayerAddCard(this.playerTotalValue)) {
-        this.addCard(this.playerCardList);
-        this.props.dispatch({
-          type: ActionTypes.ADD_PLAYER_CARD,
-          payload: {
-            playerCard: this.playerCardList[
-              this.playerCardList.length - 1
-            ].toString()
-          }
-        });
-      }
-      if (this.checkBankerAddCard(this.bankerTotalValue, this.playerCardList)) {
-        this.addCard(this.bankerCardList);
-        this.props.dispatch({
-          type: ActionTypes.ADD_BANKER_CARD,
-          payload: {
-            bankerCard: this.bankerCardList[
-              this.bankerCardList.length - 1
-            ].toString()
-          }
-        });
-      }
-      this.updateTotalValue();
-      this.getResult(this.playerTotalValue, this.bankerTotalValue);
+    if (this.checkBankerAddCard(this.bankerTotalValue, this.playerCardList)) {
+      this.addCard(this.bankerCardList);
+      this.props.dispatch({
+        type: ActionTypes.ADD_BANKER_CARD,
+        payload: {
+          bankerCard: this.bankerCardList[
+            this.bankerCardList.length - 1
+          ].toString()
+        }
+      });
     }
-    if (this.currentTime < 0) { // game reset
-      this.currentTime = this.maxTime;
-      this.clearGame();
-      if (this.openCardList.length < 10) { // shuffle if no more cards on deck
-        this.shuffleDeck();
-      }
-      this.giveCard();
-    }
+    this.updateTotalValue();
+    this.getResult(this.playerTotalValue, this.bankerTotalValue);
+  }
+
+  clearGame() {
+    this.closeCardList = [];
+    this.playerCardList = [];
+    this.bankerCardList = [];
+    this.playerTotalValue = 0;
+    this.bankerTotalValue = 0;
+    this.props.dispatch({ type: ActionTypes.CLEAR_GAME });
+    this.props.dispatch({
+      type: ActionTypes.SET_LOCK,
+      payload: { lock: false }
+    });
+    this.updateTotalValue();
   }
   shuffleDeck() {
     this.openCardList = Object.assign(
@@ -160,19 +139,6 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
         bankerTotalValue: this.bankerTotalValue
       }
     });
-  }
-  clearGame() {
-    this.closeCardList = [];
-    this.playerCardList = [];
-    this.bankerCardList = [];
-    this.playerTotalValue = 0;
-    this.bankerTotalValue = 0;
-    this.props.dispatch({ type: ActionTypes.CLEAR_GAME });
-    this.props.dispatch({
-      type: "SET_LOCK",
-      payload: { lock: false }
-    });
-    this.updateTotalValue();
   }
   giveCard() {
     // first draw
@@ -202,26 +168,25 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
   }
 
   getResult(_playerTotalValue: number, _bankerTotalValue: number) {
-    let winner = 'tie';
+    let winner = "tie";
     let multiplier = 9;
     let betAmt = this.props.tieBetAmount;
     let winnerType = 0;
-   if (_playerTotalValue > _bankerTotalValue) {
+    if (_playerTotalValue > _bankerTotalValue) {
       betAmt = this.props.playerBetAmount;
       multiplier = 2;
-      winner = 'player'
-      winnerType = 1; // player 
+      winner = "player";
+      winnerType = 1; // player
     } else if (_bankerTotalValue > _playerTotalValue) {
       betAmt = this.props.bankerBetAmount;
       multiplier = 2;
-      winner = 'banker'
-      winnerType = 2; // banker windws
+      winner = "banker";
+      winnerType = 2; // banker 
     }
     this.props.dispatch({
       type: ActionTypes.SET_WINNER,
-      payload: { winner, winAmount: this.props.bankerBetAmount * multiplier }
+      payload: { winner, winAmount: betAmt * multiplier }
     });
-  
   }
   addCard(arr: Array<number>) {
     arr.push(this.openCardList.splice(0, 1)[0]);
@@ -250,17 +215,20 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
         return true;
       } else if (
         _bankerTotalValue === 4 &&
-        playerLastCardValue >= 2 && playerLastCardValue <= 7
+        playerLastCardValue >= 2 &&
+        playerLastCardValue <= 7
       ) {
         return true;
       } else if (
         _bankerTotalValue === 5 &&
-        playerLastCardValue >= 4 && playerLastCardValue <= 7
+        playerLastCardValue >= 4 &&
+        playerLastCardValue <= 7
       ) {
         return true;
       } else if (
         _bankerTotalValue === 6 &&
-        playerLastCardValue >= 6 && playerLastCardValue <= 7
+        playerLastCardValue >= 6 &&
+        playerLastCardValue <= 7
       ) {
         return true;
       }
