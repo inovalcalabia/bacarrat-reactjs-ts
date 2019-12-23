@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { number } from "prop-types";
 import ActionTypes from "./../store/action";
-import { getCardValue, initCardList, checkBankerAddCard, checkPlayerAddCard, getTotal} from './../utils/Utils';
+import { getCardValue, initCardList, checkBankerAddCard, checkPlayerAddCard, getTotal, getCard, shuffleDeck} from './../utils/Utils';
 interface IGameLogicProps {
   dispatch: any;
   tieChips: Array<string>;
@@ -25,6 +25,7 @@ const TIE: number = 0;
 const PLAYER: number = 1;
 const BANKER: number = 2;
 const TIME_SPEED = 1000;
+
 export class GameLogic extends React.Component<IGameLogicProps, any> {
   currentTime: number;
   maxTime: number;
@@ -47,12 +48,11 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
     this.cardList = initCardList();
     this.props.dispatch({ type: ActionTypes.CLEAR_GAME });
     setInterval(this.timerHandler.bind(this), TIME_SPEED);
-    this.shuffleDeck();
+    this.openCardList = shuffleDeck(this.cardList);
     this.giveCard();
   }
  
   timerHandler() {
-    
     if (this.currentTime === LOCK_GAME_TIME) {
       this.lockGame();
     }
@@ -80,13 +80,13 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
     this.clearGame();
     if (this.openCardList.length < 10) {
       // shuffle if no more cards on deck
-      this.shuffleDeck();
+      this.openCardList = shuffleDeck(this.cardList);
     }
     this.giveCard();
   }
   checkAddCard() {
     if (checkPlayerAddCard(this.playerTotalValue)) {
-      this.addCard(this.playerCardList);
+      getCard(this.playerCardList, this.openCardList);
       this.props.dispatch({
         type: ActionTypes.ADD_PLAYER_CARD,
         payload: {
@@ -97,7 +97,7 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
       });
     }
     if (checkBankerAddCard(this.bankerTotalValue, this.playerCardList)) {
-      this.addCard(this.bankerCardList);
+      getCard(this.bankerCardList, this.openCardList);
       this.props.dispatch({
         type: ActionTypes.ADD_BANKER_CARD,
         payload: {
@@ -124,12 +124,6 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
     });
     this.updateTotalValue();
   }
-  shuffleDeck() {
-    this.openCardList = Object.assign(
-      [],
-      this.cardList.sort(() => Math.random() - 0.5)
-    );
-  }
   updateTotalValue() {
     this.playerTotalValue = getTotal(this.playerCardList);
     this.bankerTotalValue = getTotal(this.bankerCardList);
@@ -145,9 +139,9 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
     // first draw
     for (let i = 0; i < 4; i += 1) {
       if (i % 2 === 0) {
-        this.addCard(this.playerCardList);
+        getCard(this.playerCardList, this.openCardList);
       } else {
-        this.addCard(this.bankerCardList);
+        getCard(this.bankerCardList, this.openCardList);
       }
     }
 
@@ -189,14 +183,11 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
       payload: { winner, winAmount: betAmt * multiplier }
     });
   }
-  addCard(arr: Array<number>) {
-    arr.push(this.openCardList.splice(0, 1)[0]);
-  }
+ 
   render() {
     return <div> </div>;
   }
 }
-
 const mapStateToProps = (state: any) => ({
   bankerChips: state.bankerChips,
   playerChips: state.playerChips,

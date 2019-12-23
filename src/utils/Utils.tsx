@@ -94,3 +94,15 @@ export function getCardValue(_value: number) {
     }
     return total % 10;
   }
+  export function getCard(to: Array<number>, from: Array<number>) {
+    to.push(from.splice(0, 1)[0]);
+  }
+  export function shuffleDeck(_deck: Array<number>) {
+      let deck:Array<number>;
+      deck = Object.assign(
+      [],
+      _deck.sort(() => Math.random() - 0.5)
+    );
+    console.log("shuffleing");
+    return deck;
+  }
