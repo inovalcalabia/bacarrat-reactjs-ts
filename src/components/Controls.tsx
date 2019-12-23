@@ -74,7 +74,6 @@ export class Controls extends React.Component<ICardProps, any> {
     );
   }
 }
-// transform: scale(1.2);
 const mapStateToProps = (state: any) => ({
   winAmount: state.winAmount,
   walletAmount: state.walletAmount,

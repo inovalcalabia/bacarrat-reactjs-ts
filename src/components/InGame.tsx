@@ -1,6 +1,4 @@
-interface IInGameProps {
-    
-}
+
 
 interface IState {
   count?: number;
@@ -14,14 +12,11 @@ import Betting from "./Betting";
 import Controls from "./Controls";
 import Blocker from './Blocker';
 
-export class InGame extends React.Component<IInGameProps, IState> {
+export class InGame extends React.Component<any, IState> {
   count: number;
   bettingCompRef: any;
   constructor(props: any) {
     super(props);
-    this.state = {
-      count: 1
-    };
   }
   render() {
     return (

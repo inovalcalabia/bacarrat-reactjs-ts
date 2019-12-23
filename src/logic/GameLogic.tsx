@@ -39,7 +39,7 @@ export class GameLogic extends React.Component<IGameLogicProps, any> {
     this.playerTotalValue = 0;
     this.bankerTotalValue = 0;
     this.setCardList();
-    this.props.dispatch({ type: "CLEAR_GAME" });
+    this.props.dispatch({ type: ActionTypes.CLEAR_GAME });
     setInterval(this.timerHandler.bind(this), 1000);
     this.shuffleDeck();
     this.giveCard();
