@@ -129,7 +129,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
       }
     ];
     let table = [];
-    for (var i: number = 0; i < tableInfoList.length; i += 1) {
+    for (let i: number = 0; i < tableInfoList.length; i += 1) {
       table.push(
         <div
           key={i + Math.random() * 20} 
