@@ -99,7 +99,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
       }
       chips.push(
         <div
-          key={i}
+          key={i + Math.random() * 20}
           className={"bet-chip" + " chip-url-" + _chips[i]}
           style={{ top: 50 - xCount * 5 + "px", left: 15 + xPos * 15 + "px" }}
         ></div>
@@ -132,6 +132,7 @@ export class Betting extends React.Component<IBettingProps, IState> {
     for (var i: number = 0; i < tableInfoList.length; i += 1) {
       table.push(
         <div
+          key={i + Math.random() * 20} 
           className={"bet " + tableInfoList[i].name}
           onClick={this.placeBetHandler.bind(this, tableInfoList[i].name)}
         >

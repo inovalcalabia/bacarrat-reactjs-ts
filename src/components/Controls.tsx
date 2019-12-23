@@ -42,6 +42,7 @@ export class Controls extends React.Component<ICardProps, any> {
     for (let i: number = 0; i < chips.length; i += 1) {
       chipSet.push(
         <div
+          key={i + Math.random() * 20}
           className={"chip-btn chip-url-" + chips[i]}
           onClick={this.selectChipHandler.bind(this, chips[i])}
           style={{
