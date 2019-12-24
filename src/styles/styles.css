@@ -58,20 +58,17 @@
     width: 49%;
     height: 100%;
     display: inline-block;
-    
+    border-top: 2px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
     position: relative;
 }
 .banker-border {
     border-left: 2px solid rgba(0, 0, 0, 0.66);
-    border-top: 2px solid rgba(0, 0, 0, 0.3);
-    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
 .player-border {
     border-right: 2px solid rgba(0, 0, 0, 0.66);
-    border-top: 2px solid rgba(0, 0, 0, 0.3);
-    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }

@@ -103,6 +103,5 @@ export function getCardValue(_value: number) {
       [],
       _deck.sort(() => Math.random() - 0.5)
     );
-    console.log("shuffleing");
     return deck;
   }
